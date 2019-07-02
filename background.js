@@ -58,10 +58,10 @@ function sortObjects(a,b){
 
 
 
-chrome.browserAction.onClicked.addListener(buttonClicked)
-
-function buttonClicked(Tab){
-    tabsAndTimes.sort(sortObjects)
-
-    console.log(tabsAndTimes)
-} 
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if(message.popupOpen) {
+      tabsAndTimes.sort(sortObjects)
+      console.log(tabsAndTimes)
+      sendResponse(tabsAndTimes);
+    }
+  });
