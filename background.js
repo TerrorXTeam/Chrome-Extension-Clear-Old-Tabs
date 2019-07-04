@@ -14,7 +14,7 @@ chrome.tabs.onHighlighted.addListener(function tabID(tab){
     reqTab=Number(tab.tabIds)
     chrome.tabs.get(reqTab,function returnName(Tab){
        tabTitle=Tab.title;
-       timeStampClick= new Date("YYYY-MM");
+       timeStampClick= new Date();
        for (timeStamps of tabsAndTimes){
        if(reqTab === timeStamps["TabID"]){
            timeStamps["TabName"]=tabTitle
