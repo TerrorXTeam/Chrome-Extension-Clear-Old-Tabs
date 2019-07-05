@@ -9,23 +9,25 @@
          clickedTime= new Date(obj.LastClicked);
          deltaClickTime=currentDate.getTime()-clickedTime.getTime();
         $('#example tbody').append('<tr> <td> </td> <td>'+obj.TabName+'</td>'+
-        '<td> </td> <td>'+msToTime(deltaClickTime)+'</td></tr>')
+        '<td>'+msToTime(deltaClickTime)+'</td></tr>')
         console.log(msToTime(deltaClickTime));
       };
-      var table = $('#example').DataTable({
-         'columnDefs': [
-            {
-               'targets': 0,
-               'checkboxes': {
-                  'selectRow': true
-               }
-            }
-         ],
-         'select': {
-            'style': 'multi'
+      $('#example').DataTable( {
+         columnDefs: [ {
+             orderable: false,
+             className: 'select-checkbox',
+             targets:   0
+         } ],
+         select: {
+             style:    'multi',
+             selector: 'td:first-child'
          }
-      });
+     } );
     });
+
+
+
+    
 
 
 
