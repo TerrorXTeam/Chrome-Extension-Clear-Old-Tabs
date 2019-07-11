@@ -3,6 +3,7 @@
        currentDate= new Date();
       
        console.log("Curr Time is: "+currentDate)
+      // $("#example tbody").append('')
       /* process response */
       console.log(response)
       for(obj of response){
@@ -12,22 +13,36 @@
         '<td>'+msToTime(deltaClickTime)+'</td></tr>')
         console.log(msToTime(deltaClickTime));
       };
-      $('#example').DataTable( {
-         columnDefs: [ {
-             orderable: false,
-             className: 'select-checkbox',
-             targets:   0
-         } ],
-         select: {
-             style:    'multi',
-             selector: 'td:first-child'
-         }
-     } );
+      generateDataTable();
+      
+ 
     });
 
-
-
-    
+    function generateDataTable(){
+      $('#example').DataTable( {
+        columnDefs: [ {
+            orderable: false,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
+        select: {
+            style:    'multi',
+            selector: 'td:first-child'
+        },
+        dom: 'Bfrtip',
+        buttons: [
+           {
+               text: 'My button',
+               action: function(){
+                 console.log("SSSSS")
+                 //var x = document.getElementsByClassName('odd selected')
+                 var x = document.querySelectorAll('.odd.selected,.even.selected')
+                 console.log(x)
+               }
+               }
+       ]
+    } )
+    }
 
 
 
