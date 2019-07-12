@@ -9,7 +9,7 @@
       for(obj of response){
          clickedTime= new Date(obj.LastClicked);
          deltaClickTime=currentDate.getTime()-clickedTime.getTime();
-        $('#example tbody').append('<tr> <td> </td> <td>'+obj.TabName+'</td>'+
+        $('#example tbody').append('<tr> <td id="checkBox"> </td> <td id="tabName">'+obj.TabName+'</td>'+
         '<td>'+msToTime(deltaClickTime)+'</td></tr>')
         console.log(msToTime(deltaClickTime));
       };
@@ -17,6 +17,13 @@
       
  
     });
+
+$('#example').on('click','tbody tr', function(e){
+  console.log('YES')
+  xx=$(e.target).closest("td").next('td').text()
+  console.log(xx)
+})
+
 
     function generateDataTable(){
       $('#example').DataTable( {
@@ -36,8 +43,10 @@
                action: function(){
                  console.log("SSSSS")
                  //var x = document.getElementsByClassName('odd selected')
-                 var x = document.querySelectorAll('.odd.selected,.even.selected')
-                 console.log(x)
+                 //var x = document.getElementsByClassName('odd.selected').getElementById("tabName")[0]
+                 var x = $('.odd.selected').find('#tabName').text()
+                 var y = $('.even.selected').find('#tabName').text()
+                 console.log(y)
                }
                }
        ]
