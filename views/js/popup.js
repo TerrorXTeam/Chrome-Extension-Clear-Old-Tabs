@@ -1,6 +1,8 @@
 
     chrome.runtime.sendMessage({popupOpen: true}, function(response) {
        currentDate= new Date();
+       tabsToClose=[];
+       activeTabs=response;
       
        console.log("Curr Time is: "+currentDate)
       // $("#example tbody").append('')
@@ -20,8 +22,14 @@
 
 $('#example').on('click','tbody tr', function(e){
   console.log('YES')
-  xx=$(e.target).closest("td").next('td').text()
-  console.log(xx)
+  clickedTab=$(e.target).closest("td").next('td').text()
+  if (tabsToClose.includes(clickedTab)){
+    indexTab=tabsToClose.indexOf(clickedTab)
+    tabsToClose.splice(indexTab,1)
+  }
+  else{
+  tabsToClose.push(clickedTab)}
+  console.log(tabsToClose)
 })
 
 
@@ -36,17 +44,21 @@ $('#example').on('click','tbody tr', function(e){
             style:    'multi',
             selector: 'td:first-child'
         },
+        searching: false, 
+        paging: false, 
+        info: false,
         dom: 'Bfrtip',
         buttons: [
            {
-               text: 'My button',
+               text: 'Close Tabs',
                action: function(){
-                 console.log("SSSSS")
-                 //var x = document.getElementsByClassName('odd selected')
-                 //var x = document.getElementsByClassName('odd.selected').getElementById("tabName")[0]
-                 var x = $('.odd.selected').find('#tabName').text()
-                 var y = $('.even.selected').find('#tabName').text()
-                 console.log(y)
+                 closeTabs=[]
+                for(obj of activeTabs){
+                 if(tabsToClose.includes(obj.TabName)){
+                  closeTabs.push(obj.TabID)
+                 }
+               }
+               chrome.tabs.remove(closeTabs)
                }
                }
        ]

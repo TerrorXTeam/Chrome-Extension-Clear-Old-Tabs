@@ -11,10 +11,12 @@ chrome.tabs.query({},function(tabs){
 //Event listener which adds/updates an array of objects.
 //Objects=dictionary with tabID,TabName,LastClicked time
 chrome.tabs.onHighlighted.addListener(function tabID(tab){
-    reqTab=Number(tab.tabIds)
+
+    var reqTab=Number(tab.tabIds)
+    console.log(reqTab)
     chrome.tabs.get(reqTab,function returnName(Tab){
-       tabTitle=Tab.title;
-       timeStampClick= new Date();
+        var tabTitle=Tab.title;
+        var timeStampClick= new Date();
        for (timeStamps of tabsAndTimes){
        if(reqTab === timeStamps["TabID"]){
            timeStamps["TabName"]=tabTitle
@@ -39,6 +41,36 @@ chrome.tabs.onRemoved.addListener(function XtabID(tabID){
         }
     }
 })
+
+
+
+chrome.tabs.onUpdated.addListener(function tabID(tab){
+    var reqTab=tab
+    chrome.tabs.get(reqTab,function returnName(Tab){
+        var tabTitle=Tab.title;
+        var timeStampClick= new Date();
+       for (timeStamps of tabsAndTimes){
+       if(reqTab === timeStamps["TabID"]){
+           timeStamps["TabName"]=tabTitle
+           timeStamps["LastClicked"]=timeStampClick
+           var STOP="Yes"
+       }}
+       if(STOP!="Yes"){
+       tabsAndTimes.push({
+            TabID:reqTab,
+            TabName:tabTitle,
+            LastClicked:timeStampClick
+       })}
+       console.log(tabsAndTimes)
+    })
+})
+
+
+
+
+
+
+
 
 //Sorts objects in an array
 function sortObjects(a,b){

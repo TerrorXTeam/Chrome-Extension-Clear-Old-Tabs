@@ -7,7 +7,7 @@
         "persistent": true
     },
     "browser_action":{
-        "default_icon":"clean_tabs.png",
+        "default_icon":"outputonlinepngtools1.png",
         "default_popup":"views/popup.html"
     },
     "permissions": [
