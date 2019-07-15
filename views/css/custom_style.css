@@ -29,7 +29,11 @@
 }
 
 .content-table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
+  background-color: #f3f3f3f1;
+}
+
+.content-table tbody tr:nth-of-type(odd) {
+  background-color: #ffffff;
 }
 
 .content-table tbody tr:last-of-type {
@@ -50,4 +54,5 @@ tr.strikeout td:before {
   border-bottom: 1px solid #111;
   width: 100%;
 }
+html { background-color: #e9e9e9b2;}
 
