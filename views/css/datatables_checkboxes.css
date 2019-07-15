@@ -23,5 +23,11 @@ div.dataTables_wrapper span.select-item {
 }
 
 body {
-  width:800px;
+  width:700px;
+  margin: 0;
+  bottom: 0
+}
+
+#example_wrapper{
+  width: 700px;
 }

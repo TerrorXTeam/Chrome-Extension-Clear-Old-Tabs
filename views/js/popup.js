@@ -16,7 +16,7 @@
         console.log(msToTime(deltaClickTime));
       };
       generateDataTable();
-      
+       
  
     });
 
@@ -34,12 +34,15 @@ $('#example').on('click','tbody tr', function(e){
 
 
     function generateDataTable(){
-      $('#example').DataTable( {
+     table = $('#example').DataTable( {
         columnDefs: [ {
             orderable: false,
             className: 'select-checkbox',
-            targets:   0
-        } ],
+            targets:   0,
+        },
+          {
+            width:"5%",targets:[0,2]
+          } ],
         select: {
             style:    'multi',
             selector: 'td:first-child'
@@ -47,6 +50,8 @@ $('#example').on('click','tbody tr', function(e){
         searching: false, 
         paging: false, 
         info: false,
+        ordering: false,
+        autoWidth: false,
         dom: 'Bfrtip',
         buttons: [
            {
@@ -59,10 +64,13 @@ $('#example').on('click','tbody tr', function(e){
                  }
                }
                chrome.tabs.remove(closeTabs)
+               $('.even.selected').addClass('strikeout')
+               $('.odd.selected').addClass('strikeout')
                }
                }
        ]
     } )
+    table.buttons().containers().appendTo( 'body' )  
     }
 
 
