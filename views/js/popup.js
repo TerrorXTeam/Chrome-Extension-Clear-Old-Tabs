@@ -65,6 +65,8 @@ function generateDataTable() {
           chrome.tabs.remove(closeTabs)
           $('.even.selected').addClass('strikeout')
           $('.odd.selected').addClass('strikeout')
+          tabsToClose=[]
+
         }
       }
     ]
