@@ -5,16 +5,17 @@ Google chrome Extension for managing tabs. If you want decide which tabs to clos
 Version 1
 Known bugs:
 
-Table rows representing closed tabs stays visible after tabs are closed(Fixed)
-Changing web page for a tab does not change the tab name in Extension(FIXED)
-After selected tabs are closed, if you add to the initial selection a tab, it doesnt close it self (Fixed)
+Table rows representing closed tabs stays visible after tabs are closed(Fixed)__
+Changing web page for a tab does not change the tab name in Extension(FIXED)__
+After selected tabs are closed, if you add to the initial selection a tab, it doesnt close it self (Fixed)__
+The tabs list must be specific for the openned chrome window
 
 
 ToDo:
 
-Remove search and paging in datatables (DONE)
+Remove search and paging in datatables (DONE)__
 Adjust datatable size (Done)
-update name only when URL is changed
+update name only when URL is changed (DONE)
 Style page (done)
 
 
