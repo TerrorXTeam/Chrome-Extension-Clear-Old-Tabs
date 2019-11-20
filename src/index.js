@@ -11,7 +11,6 @@ const ChromeTabsData = [{tabID: 73, tabName: "Your environments", lastTimeClicke
                       {tabID: 78, tabName: "CheckerTester", lastTimeClicked: "2019-10-09T16:25:52.627Z"}
 ]
 
-
 ReactDOM.render(<App chromeTabs={ChromeTabsData}  />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
