@@ -46,19 +46,21 @@ class TabTable extends Component {
         this.addCloseTabsHandler = this.addCloseTabsHandler.bind(this);
     }
 
-    addCloseTabsHandler = (e,tabID) => {
-        
-        if (tabsToClose.includes(tabID)){
-            let elemntIndex = tabsToClose.indexOf(tabID);
-            tabsToClose.splice(elemntIndex,1)}
+    addCloseTabsHandler = (e,ID) => {
+        let tabID='Tab'+ID
+        if (this.props.ToClose.includes(tabID)){
+            let elemntIndex = this.props.ToClose.indexOf(tabID);
+            this.props.ToClose.splice(elemntIndex,1)}
         else{
-            tabsToClose.push(tabID);
+
+            this.props.ToClose.push(tabID);
         }
     }
         
 
     handleClosingTabs = (e) => {
-        this.props.closeTabs(tabsToClose)
+        this.props.closeTabs();
+
     }
 
     render() {
@@ -66,7 +68,6 @@ class TabTable extends Component {
         const rows = [];
 
         this.props.chromeTabs.forEach((tab) => {    
-            console.log(tab)
             rows.push(
                 <StyleTableRow key={tab.tabID}>
                     <StyleTableCell padding="checkbox" size="small" align="left" onChange={e => this.addCloseTabsHandler(e,tab.tabID)}>
@@ -95,7 +96,7 @@ class TabTable extends Component {
                     </TableBody>
                 </Table>
                 <div>
-                    <Fab color="primary" aria-lable="close" size="small" disabled={false} onClick={e => this.handleClosingTabs}>
+                    <Fab color="primary" aria-lable="close" size="small" disabled={false} onClick={e => this.handleClosingTabs(e)}>
                         <CloseIcon />
                     </Fab>
                 </div>
