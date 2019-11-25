@@ -12,15 +12,35 @@ class App extends Component {
     this.closeTabsHandler = this.closeTabsHandler.bind(this);
     this.fetchStorageDataHandler = this.fetchStorageDataHandler.bind(this);
     this.chromeCloseTabsHandler = this.chromeCloseTabsHandler.bind(this);
+    this.sortObjects=this.sortObjects.bind(this);
   }
+
+//Sorts objects in an array
+  sortObjects=(a,b)=>{
+    console.log(a)
+    console.log(b)
+     const aClicked=new Date(a.timeStampClick);
+     const bClicked=new Date(b.timeStampClick);
+
+    let comparison=0;
+    if (aClicked > bClicked){
+        comparison=1;
+    }
+    else if (aClicked < bClicked){
+        comparison=-1;
+    }
+    return comparison;
+};
 
 //Get tabs stats from local storage and refresh the state
   fetchStorageDataHandler = () => {
     window.chrome.storage.local.get(
       null,
       function (data) {
+        console.log(Object.values(data))
+        const sortedTabsData=Object.values(data).sort(this.sortObjects)
         this.setState({
-          ChromeTabsData: Object.values(data)
+          ChromeTabsData: sortedTabsData//Object.values(data)
         })
       }.bind(this)
     );
