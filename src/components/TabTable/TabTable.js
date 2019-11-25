@@ -37,14 +37,44 @@ const StyleTableRow = withStyles(({
     },
 }))(TableRow);
 
-let tabsToClose = []
+
 
 class TabTable extends Component {
     constructor(props) {
         super(props);
         this.handleClosingTabs = this.handleClosingTabs.bind(this);
         this.addCloseTabsHandler = this.addCloseTabsHandler.bind(this);
+        this.msToTimeHandler=this.msToTimeHandler.bind(this);
     }
+
+
+    //  formatDate=(date)=> {
+
+    //     var dd = date.getDate();
+    //     var mm = date.getMonth() + 1;
+    //     var yyyy = date.getFullYear();
+    //     var hh = date.getHours();
+    //     var ss = date.getSeconds();
+    //     if (dd < 10) { dd = '0' + dd }
+    //     if (mm < 10) { mm = '0' + mm }
+    //     date = yyyy + mm + dd;
+    //     time = hh + ":" + ss;
+    //     return time
+    //   }
+      
+      
+      msToTimeHandler=(duration)=> {
+        let milliseconds = parseInt((duration % 1000) / 100),
+          seconds = Math.floor((duration / 1000) % 60),
+          minutes = Math.floor((duration / (1000 * 60)) % 60),
+          hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+      
+        hours = (hours < 10) ? "0" + hours : hours;
+        minutes = (minutes < 10) ? "0" + minutes : minutes;
+        seconds = (seconds < 10) ? "0" + seconds : seconds;
+      
+        return hours + ":" + minutes + ":" + seconds;
+      }
 
     addCloseTabsHandler = (e,ID) => {
         let tabID='Tab'+ID
@@ -67,7 +97,10 @@ class TabTable extends Component {
 
         const rows = [];
 
-        this.props.chromeTabs.forEach((tab) => {    
+        this.props.chromeTabs.forEach((tab) => {
+            let timeStampClick = new Date(tab.timeStampClick)
+            let deltaTimeStampClick=this.props.currentTime.getTime() - timeStampClick.getTime()
+
             rows.push(
                 <StyleTableRow key={tab.tabID}>
                     <StyleTableCell padding="checkbox" size="small" align="left" onChange={e => this.addCloseTabsHandler(e,tab.tabID)}>
@@ -76,7 +109,7 @@ class TabTable extends Component {
                     <StyleTableCell size="small" component="th" scrope="row">
                         {tab.tabTitle}
                     </StyleTableCell>
-                    <StyleTableCell size="small" align="left">{tab.timeStampClick}</StyleTableCell>
+                    <StyleTableCell size="small" align="left">{this.msToTimeHandler(deltaTimeStampClick)}</StyleTableCell>
                 </StyleTableRow>
             )
 

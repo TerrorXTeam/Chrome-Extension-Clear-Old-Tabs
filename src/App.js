@@ -55,7 +55,7 @@ class App extends Component {
     return (
       this.state.ChromeTabsData && (
         <div className={styles.App}>
-          <TabTable chromeTabs={this.state.ChromeTabsData} closeTabs={this.closeTabsHandler} ToClose={this.state.tabsToClose} />
+          <TabTable chromeTabs={this.state.ChromeTabsData} closeTabs={this.closeTabsHandler} ToClose={this.state.tabsToClose} currentTime={new Date()} />
         </div>
       )
     );

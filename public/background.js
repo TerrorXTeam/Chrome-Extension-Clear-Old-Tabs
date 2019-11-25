@@ -1,3 +1,8 @@
+chrome.storage.local.clear()
+
+
+
+
 
 //Clear local storage data when window is closed
 chrome.windows.onRemoved.addListener(function Window(window) {
@@ -41,6 +46,12 @@ chrome.tabs.onUpdated.addListener(function tabID(tab) {
     chrome.storage.local.set(jsonTabData);
 
   });
+})
+
+chrome.tabs.onRemoved.addListener(function XtabID(tabID) {
+  manuallyClosedTab='Tab'+tabID
+  chrome.storage.local.remove(manuallyClosedTab, function () {
+  })
 })
 
 
