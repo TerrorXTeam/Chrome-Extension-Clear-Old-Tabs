@@ -15,7 +15,7 @@ const StyleTableCell = withStyles(theme => ({
         padding: 30,
     },
     head: {
-        backgroundColor: "#009879",
+        backgroundColor: "#4485f4",
         color: "#ffffff",
         textAlign: "left",
         "font-weight": "bold"
@@ -109,7 +109,7 @@ class TabTable extends Component {
                     <StyleTableCell size="small" component="th" scrope="row">
                         {tab.tabTitle}
                     </StyleTableCell>
-                    <StyleTableCell size="small" align="left">{this.msToTimeHandler(deltaTimeStampClick)}</StyleTableCell>
+                    <StyleTableCell size="small" align="center">{this.msToTimeHandler(deltaTimeStampClick)}</StyleTableCell>
                 </StyleTableRow>
             )
 
@@ -120,8 +120,8 @@ class TabTable extends Component {
                     <TableHead>
                         <TableRow>
                             <StyleTableCell padding="checkbox" />
-                            <StyleTableCell align="left">Tab Name</StyleTableCell>
-                            <StyleTableCell align="left">Last Time Used</StyleTableCell>
+                            <StyleTableCell align="center">Tab Name</StyleTableCell>
+                            <StyleTableCell align="center" style={{width:"100px"}}>Last Time Used</StyleTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
