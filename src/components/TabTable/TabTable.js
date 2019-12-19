@@ -8,6 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Fab from '@material-ui/core/Fab';
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import  './TabTable.css'
 
 
 const StyleTableCell = withStyles(theme => ({
@@ -37,14 +38,27 @@ const StyleTableRow = withStyles(({
     },
 }))(TableRow);
 
+const buttonTransition = {
+    margin: 0,
+    top: 'auto',
+    right: 20,
+    bottom: 20,
+    left: 'auto',
+    position: 'fixed',
+    transitionDelay: '8s'
+}
+
 
 
 class TabTable extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showButton: false
+        };
         this.handleClosingTabs = this.handleClosingTabs.bind(this);
         this.addCloseTabsHandler = this.addCloseTabsHandler.bind(this);
-        this.msToTimeHandler=this.msToTimeHandler.bind(this);
+        this.msToTimeHandler = this.msToTimeHandler.bind(this);
     }
 
 
@@ -61,35 +75,42 @@ class TabTable extends Component {
     //     time = hh + ":" + ss;
     //     return time
     //   }
-      
-      
-      msToTimeHandler=(duration)=> {
+
+
+    msToTimeHandler = (duration) => {
         let milliseconds = parseInt((duration % 1000) / 100),
-          seconds = Math.floor((duration / 1000) % 60),
-          minutes = Math.floor((duration / (1000 * 60)) % 60),
-          hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-      
+            seconds = Math.floor((duration / 1000) % 60),
+            minutes = Math.floor((duration / (1000 * 60)) % 60),
+            hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
         hours = (hours < 10) ? "0" + hours : hours;
         minutes = (minutes < 10) ? "0" + minutes : minutes;
         seconds = (seconds < 10) ? "0" + seconds : seconds;
-      
-        return hours + ":" + minutes + ":" + seconds;
-      }
 
-    addCloseTabsHandler = (e,ID) => {
-        let tabID='Tab'+ID
-        if (this.props.ToClose.includes(tabID)){
+        return hours + ":" + minutes + ":" + seconds;
+    }
+
+    addCloseTabsHandler = (e, ID) => {
+        this.setState ({
+            showButton: true
+        });
+        let tabID = 'Tab' + ID
+        if (this.props.ToClose.includes(tabID)) {
             let elemntIndex = this.props.ToClose.indexOf(tabID);
-            this.props.ToClose.splice(elemntIndex,1)}
-        else{
+            this.props.ToClose.splice(elemntIndex, 1)
+        }
+        else {
 
             this.props.ToClose.push(tabID);
         }
     }
-        
+
 
     handleClosingTabs = (e) => {
         this.props.closeTabs();
+        this.setState({
+            showButton:false
+        });
 
     }
 
@@ -99,11 +120,11 @@ class TabTable extends Component {
 
         this.props.chromeTabs.forEach((tab) => {
             let timeStampClick = new Date(tab.timeStampClick)
-            let deltaTimeStampClick=this.props.currentTime.getTime() - timeStampClick.getTime()
+            let deltaTimeStampClick = this.props.currentTime.getTime() - timeStampClick.getTime()
 
             rows.push(
                 <StyleTableRow key={tab.tabID}>
-                    <StyleTableCell padding="checkbox" size="small" align="left" onChange={e => this.addCloseTabsHandler(e,tab.tabID)}>
+                    <StyleTableCell padding="checkbox" size="small" align="left" onChange={e => this.addCloseTabsHandler(e, tab.tabID)}>
                         <Checkbox />
                     </StyleTableCell>
                     <StyleTableCell size="small" component="th" scrope="row">
@@ -121,7 +142,7 @@ class TabTable extends Component {
                         <TableRow>
                             <StyleTableCell padding="checkbox" />
                             <StyleTableCell align="center">Tab Name</StyleTableCell>
-                            <StyleTableCell align="center" style={{width:"100px"}}>Last Time Used</StyleTableCell>
+                            <StyleTableCell align="center" style={{ width: "100px" }}>Last Time Used</StyleTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -129,9 +150,14 @@ class TabTable extends Component {
                     </TableBody>
                 </Table>
                 <div>
-                    <Fab color="primary" aria-lable="close" size="small" disabled={false} onClick={e => this.handleClosingTabs(e)}>
+                    {
+                        
+                        this.state.showButton ? 
+                    
+                    <Fab classes={{root:'buttonTransition'}} color="primary" aria-lable="close" size="small" disabled={false} onClick={e => this.handleClosingTabs(e)}>
                         <CloseIcon />
-                    </Fab>
+                    </Fab> : null}
+
                 </div>
 
             </div>

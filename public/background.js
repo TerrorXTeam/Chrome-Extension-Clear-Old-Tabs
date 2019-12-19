@@ -1,4 +1,4 @@
-chrome.storage.local.clear()
+
 
 updateLocalStorageHandler = (tab) => {
   let requestTab = Number(tab);
